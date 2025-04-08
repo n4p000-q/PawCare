@@ -1,0 +1,236 @@
+/* Global Styles */
+:root {
+    --primary: #4b7bec;
+    --secondary: #a55eea;
+    --light: #f5f6fa;
+    --dark: #2f3640;
+    --success: #20bf6b;
+    --warning: #fa8231;
+    --danger: #eb3b5a;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Header */
+.main-header {
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 40px;
+    margin-right: 15px;
+}
+
+.logo h1 {
+    color: var(--primary);
+    margin: 0;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: var(--dark);
+    padding: 0.5rem 1rem;
+    margin: 0 5px;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+nav ul li a:hover, nav ul li a.active {
+    background: var(--primary);
+    color: white;
+}
+
+nav ul li a i {
+    margin-right: 8px;
+}
+
+/* Hero Section */
+.hero {
+    display: flex;
+    align-items: center;
+    padding: 3rem 5%;
+    background: linear-gradient(135deg, #a5bdfd 0%, #d1d8f7 100%);
+}
+
+.hero-text {
+    flex: 1;
+}
+
+.hero-text h2 {
+    font-size: 2.5rem;
+    color: var(--dark);
+    margin-bottom: 1rem;
+}
+
+.hero-text p {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 2rem;
+}
+
+.btn-primary {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-primary:hover {
+    background: #3867d6;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.hero-image {
+    flex: 1;
+    text-align: center;
+}
+
+.hero-image img {
+    max-height: 300px;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Dashboard Stats */
+.dashboard-stats {
+    display: flex;
+    justify-content: space-around;
+    padding: 2rem 5%;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    width: 250px;
+    text-align: center;
+    margin: 1rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: all 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.stat-card i {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.stat-card h3 {
+    margin: 0.5rem 0;
+    color: var(--dark);
+}
+
+.stat-card p {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 1rem 0;
+    color: var(--primary);
+}
+
+.stat-card a {
+    color: var(--secondary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Recent Activity */
+.recent-activity {
+    padding: 2rem 5%;
+    background: white;
+    margin: 2rem 5%;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.recent-activity h2 {
+    color: var(--dark);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.recent-activity h2 i {
+    margin-right: 10px;
+    color: var(--primary);
+}
+
+.activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background: #f9f9f9;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.activity-item:hover {
+    background: #f1f1f1;
+}
+
+.activity-item i {
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-right: 1rem;
+}
+
+.activity-item h4 {
+    margin: 0;
+    color: var(--dark);
+}
+
+.activity-item p {
+    margin: 0.2rem 0 0;
+    color: #666;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    background: var(--dark);
+    color: white;
+    margin-top: 2rem;
+}
