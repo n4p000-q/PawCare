@@ -25,6 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = "Error: " . $e->getMessage();
     }
 }
+$page_title = "Edit Owner";
+require_once '../includes/header.php';
 ?>
 
 <!DOCTYPE html>
@@ -55,3 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <a href="list_owners.php">Cancel</a>
 </body>
 </html>
+
+<?php 
+require_once '../includes/footer.php';
+?>

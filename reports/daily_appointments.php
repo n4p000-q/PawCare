@@ -16,6 +16,9 @@ $stmt = $pdo->prepare("
 ");
 $stmt->execute([$date]);
 $appointments = $stmt->fetchAll();
+
+$page_title = "Daily Appointments";
+require_once '../includes/header.php';
 ?>
 
 <!DOCTYPE html>
@@ -65,3 +68,7 @@ $appointments = $stmt->fetchAll();
     <?php endif; ?>
 </body>
 </html>
+
+<?php 
+require_once '../includes/footer.php';
+?>

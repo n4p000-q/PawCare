@@ -13,6 +13,9 @@ $stmt = $pdo->query("
     ORDER BY a.Date, a.Time
 ");
 $appointments = $stmt->fetchAll();
+
+$page_title = "See Appointments";
+require_once '../includes/header.php';
 ?>
 
 <!DOCTYPE html>
@@ -66,3 +69,7 @@ $appointments = $stmt->fetchAll();
     </table>
 </body>
 </html>
+
+<?php 
+require_once '../includes/footer.php';
+?>

@@ -9,6 +9,9 @@ $stmt = $pdo->query("
     ORDER BY p.Category, p.Name
 ");
 $inventory = $stmt->fetchAll();
+
+$page_title = "Inventory Report";
+require_once '../includes/header.php';
 ?>
 
 <!DOCTYPE html>
@@ -48,3 +51,7 @@ $inventory = $stmt->fetchAll();
     </table>
 </body>
 </html>
+
+<?php 
+require_once '../includes/footer.php';
+?>

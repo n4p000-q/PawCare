@@ -1,5 +1,7 @@
 <?php
 require_once '../config/db.php';
+require_once '../includes/auth_check.php'; // Verifies login and role
+
 
 // Fetch all pets with owner info
 $stmt = $pdo->query("
@@ -8,6 +10,9 @@ $stmt = $pdo->query("
     JOIN Owners o ON p.Owner_ID = o.Owner_ID
 ");
 $pets = $stmt->fetchAll();
+
+$page_title = "Manage Pets";
+require_once '../includes/header.php';
 ?>
 
 <!DOCTYPE html>
@@ -41,9 +46,9 @@ $pets = $stmt->fetchAll();
                     <td><?= $pet['Age'] ?></td>
                     <td><?= $pet['OwnerName'] ?></td>
                     <td>
-                        <a href="edit_pet.php?id=<?= $pet['Pet_ID'] ?>" class="btn-edit">Edit</a>
+                        <a href="edit_pet.php?id=<?= $pet['Pet_ID'] ?>" class="btn btn-primary btn-small">Edit</a>
                         <a href="delete_pet.php?id=<?= $pet['Pet_ID'] ?>" 
-                            class="btn-delete" 
+                            class="btn btn-primary btn-small"s 
                             onclick="return confirm('Are you sure you want to delete this pet?')">
                             Delete
                         </a>
@@ -54,3 +59,7 @@ $pets = $stmt->fetchAll();
     </table>
 </body>
 </html>
+
+<?php 
+require_once '../includes/footer.php';
+?>  

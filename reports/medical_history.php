@@ -18,6 +18,9 @@ if ($pet_id) {
     $stmt->execute([$pet_id]);
     $records = $stmt->fetchAll();
 }
+
+$page_title = "Medical History Report";
+require_once '../includes/header.php';
 ?>
 
 <!DOCTYPE html>
@@ -75,3 +78,7 @@ if ($pet_id) {
     <?php endif; ?>
 </body>
 </html>
+
+<?php 
+require_once '../includes/footer.php';
+?>

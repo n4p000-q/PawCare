@@ -34,6 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = "Error updating pet: " . $e->getMessage();
     }
 }
+
+$page_title = "Edit Pet";
+require_once '../includes/header.php';
 ?>
 
 <!DOCTYPE html>
@@ -81,3 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <a href="list_pets.php">Back to List</a>
 </body>
 </html>
+
+<?php 
+require_once '../includes/footer.php';
+?>

@@ -24,6 +24,9 @@ $sales = $stmt->fetchAll();
 $total_stmt = $pdo->prepare("SELECT SUM(Total) AS Revenue FROM Orders WHERE Date BETWEEN ? AND ?");
 $total_stmt->execute([$start_date, $end_date]);
 $total = $total_stmt->fetch();
+
+$page_title = "Sales Report";
+require_once '../includes/header.php';
 ?>
 
 <!DOCTYPE html>
@@ -78,3 +81,7 @@ $total = $total_stmt->fetch();
     <?php endif; ?>
 </body>
 </html>
+
+<?php 
+require_once '../includes/footer.php';
+?>

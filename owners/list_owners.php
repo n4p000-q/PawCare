@@ -3,6 +3,9 @@ require_once '../config/db.php';
 
 // Fetch all owners
 $owners = $pdo->query("SELECT * FROM Owners")->fetchAll();
+
+$page_title = "Manage Owners";
+require_once '../includes/header.php';
 ?>
 
 <!DOCTYPE html>
@@ -45,3 +48,7 @@ $owners = $pdo->query("SELECT * FROM Owners")->fetchAll();
     </table>
 </body>
 </html>
+
+<?php 
+require_once '../includes/footer.php';
+?>
