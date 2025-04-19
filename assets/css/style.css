@@ -421,3 +421,22 @@ input:focus, select:focus, textarea:focus {
     color: var(--primary);
     font-weight: 600;
 }
+
+/* Staff Management */
+.staff-table {
+    width: 100%;
+    margin-top: 15px;
+}
+
+.staff-table th {
+    background: var(--primary);
+    color: white;
+}
+
+.admin-container .card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}

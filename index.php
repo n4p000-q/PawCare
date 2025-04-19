@@ -2,6 +2,13 @@
 session_start();
 require_once 'config/db.php';
 
+
+// New test feature -- To revew later !!!
+if (isset($_SESSION['user_id'])) {
+    header("Location: admin/dashboard.php");
+    exit();
+}
+
 // Redirect logged-in users to their appropriate dashboard
 if (isset($_SESSION['user_id'])) {
     switch ($_SESSION['role']) {

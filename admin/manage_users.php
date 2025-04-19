@@ -30,3 +30,5 @@ $users = $pdo->query("SELECT * FROM Users ORDER BY role")->fetchAll();
     <?php endforeach; ?>
   </tbody>
 </table>
+
+<?php require_once '../includes/footer.php'; ?>

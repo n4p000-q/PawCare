@@ -19,13 +19,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Redirect based on role
         switch ($user['role']) {
             case 'client':
-                header("Location: ../client-portal/");
+                header("Location: ../client-portal/index.php");
                 break;
             case 'admin':
-                header("Location: ../admin/");
+                header("Location: ../admin/dashboard.php");  // Updated path
+                break;
+            case 'vet':
+            case 'staff':
+                header("Location: ../staff/dashboard.php");  // Added specific paths
                 break;
             default:
-                header("Location: ../");
+                header("Location: ../index.php");
         }
         exit();
     } else {
