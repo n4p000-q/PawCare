@@ -16,7 +16,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
 <body>
     <header class="main-header">
         <div class="logo">
-            <img src="../assets/images/paw-logo.png" alt="Paws & Care Logo" height="40">
+            <img src="../assets/images/welcome.png" alt="Paws & Care Logo" height="40">
             <h1>Paws & Care</h1>
         </div>
         <nav>
@@ -25,9 +25,15 @@ if (session_status() === PHP_SESSION_NONE) session_start();
                 <li><a href="../pets/list_pets.php"><i class="fas fa-paw"></i> Patients</a></li>
                 <li><a href="../appointments/list_appointments.php"><i class="fas fa-calendar-check"></i> Appointments</a></li>
                 <li><a href="../reports/daily_appointments.php"><i class="fas fa-chart-bar"></i> Reports</a></li>
+                <li><a href="../admin/tickets.php"><i class="fas fa-ticket-alt"></i> Support Tickets</a></li>
+                <li><a href="../auth/register_admin.php"><i class="fas fa-user-shield"></i> Register Admin</a></li>
                 <?php if(isset($_SESSION['user_id'])): ?>
-                    <li><a href="../logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                    <li><a href="../auth/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                 <?php endif; ?>
+
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
             </ul>
         </nav>
     </header>

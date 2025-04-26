@@ -1,11 +1,11 @@
 </main> <!-- Close content-wrapper -->
 
-<footer class="main-footer">
+<footer class="client-footer">
     <div class="footer-content">
         <p>&copy; <?= date('Y') ?> Paws & Care Veterinary System</p>
         <div class="footer-links">
-            <a href="../admin/privacy.php">Privacy Policy</a>
-            <a href="../admin/contact.php"">Contact</a>
+            <a href="../client-portal/privacy.php">Privacy Policy</a>
+            <a href="../client-portal/contact.php">Contact</a>
         </div>
     </div>
 </footer>

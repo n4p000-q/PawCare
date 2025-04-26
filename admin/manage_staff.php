@@ -1,98 +1,104 @@
 <?php
-// Restrict to admins only
-$allowed_roles = ['admin'];
-require_once '../includes/auth_check.php';
+require_once '../config/db.php';
 require_once '../includes/header.php';
+session_start();
 
-// Handle form submission
+// Check if user is admin
+if ($_SESSION['role'] !== 'admin') {
+    header('Location: ../auth/login.php');
+    exit;
+}
+
+$page_title = "Staff Management";
+
+// Handle form submission for new staff
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
     $email = trim($_POST['email']);
-    $role = $_POST['role']; // admin, vet, staff
-    $temp_password = bin2hex(random_bytes(4)); // Generates like "3a7f9b2c"
-    
-    $hashed_password = password_hash($temp_password, PASSWORD_DEFAULT);
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $role = $_POST['role'];
     
     try {
-        $stmt = $pdo->prepare("
-            INSERT INTO Users (username, password, email, role) 
-            VALUES (?, ?, ?, ?)
-        ");
-        $stmt->execute([$username, $hashed_password, $email, $role]);
-        
-        // In real app, send email with temp password here
-        $success = "Account created! Temporary password: $temp_password";
+        $stmt = $pdo->prepare("INSERT INTO Users (username, password, email, role) VALUES (?, ?, ?, ?)");
+        $stmt->execute([$username, $password, $email, $role]);
+        $success = "Staff member added successfully!";
     } catch (PDOException $e) {
-        $error = "Error: " . $e->getMessage();
+        $error = "Error adding staff: " . $e->getMessage();
     }
 }
 
-// Fetch existing staff
-$staff = $pdo->query("
-    SELECT user_id, username, email, role 
-    FROM Users 
-    WHERE role IN ('admin', 'vet', 'staff')
-")->fetchAll();
+// Fetch all staff members
+$staff = $pdo->query("SELECT * FROM Users WHERE role != 'client' ORDER BY created_at DESC")->fetchAll();
 ?>
 
 <div class="admin-container">
-    <h2><i class="fas fa-user-shield"></i> Staff Accounts</h2>
+    <h2><i class="fas fa-users-cog"></i> Staff Management</h2>
     
     <?php if (isset($success)): ?>
         <div class="alert alert-success"><?= $success ?></div>
-    <?php elseif (isset($error)): ?>
+    <?php endif; ?>
+    <?php if (isset($error)): ?>
         <div class="alert alert-danger"><?= $error ?></div>
     <?php endif; ?>
     
-    <div class="card">
-        <h3>Create New Staff Account</h3>
-        <form method="POST">
-            <label>Username*</label>
-            <input type="text" name="username" required>
-            
-            <label>Email*</label>
-            <input type="email" name="email" required>
-            
-            <label>Role*</label>
-            <select name="role" required>
-                <option value="vet">Veterinarian</option>
-                <option value="staff">Staff Member</option>
-                <option value="admin">Administrator</option>
-            </select>
-            
-            <button type="submit" class="btn btn-primary">
-                <i class="fas fa-user-plus"></i> Create Account
-            </button>
-        </form>
-    </div>
-    
-    <div class="card">
-        <h3>Existing Staff</h3>
-        <table class="staff-table">
-            <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($staff as $user): ?>
-                <tr>
-                    <td><?= htmlspecialchars($user['username']) ?></td>
-                    <td><?= htmlspecialchars($user['email']) ?></td>
-                    <td><?= ucfirst($user['role']) ?></td>
-                    <td>
-                        <a href="edit_staff.php?id=<?= $user['user_id'] ?>" 
-                           class="btn btn-edit btn-small">
-                           Edit
-                        </a>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+    <div class="staff-management">
+        <div class="add-staff-form">
+            <h3>Add New Staff Member</h3>
+            <form method="POST">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="role">Role</label>
+                    <select id="role" name="role" required>
+                        <option value="admin">Admin</option>
+                        <option value="vet">Veterinarian</option>
+                        <option value="staff">Staff</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary">Add Staff</button>
+            </form>
+        </div>
+        
+        <div class="staff-list">
+            <h3>Current Staff Members</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Created</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($staff as $member): ?>
+                    <tr>
+                        <td><?= $member['user_id'] ?></td>
+                        <td><?= htmlspecialchars($member['username']) ?></td>
+                        <td><?= htmlspecialchars($member['email']) ?></td>
+                        <td><?= ucfirst($member['role']) ?></td>
+                        <td><?= date('M j, Y', strtotime($member['created_at'])) ?></td>
+                        <td>
+                            <a href="edit_staff.php?id=<?= $member['user_id'] ?>" class="btn-edit"><i class="fas fa-edit"></i></a>
+                            <a href="delete_staff.php?id=<?= $member['user_id'] ?>" class="btn-delete" onclick="return confirm('Are you sure you want to delete this staff member?')"><i class="fas fa-trash-alt"></i></a>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
